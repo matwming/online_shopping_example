@@ -1,11 +1,26 @@
 import React, { Component } from "react";
-import Link from "next/link";
-
+import Router from "next/router";
+import NProgress from "nprogress";
+import Items from "../components/items";
 export default class Home extends Component {
+ constructor(props) {
+  super(props);
+  Router.events.on("routeChangeStart", () => {
+   NProgress.start();
+  });
+
+  Router.events.on("routeChangeComplete", () => {
+   NProgress.done();
+  });
+
+  Router.events.on("routeChangeError", () => {
+   NProgress.done();
+  });
+ }
  render() {
   return (
    <div>
-    <p>hey</p>
+    <Items />
    </div>
   );
  }
